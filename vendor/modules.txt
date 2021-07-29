@@ -1,4 +1,4 @@
-# cloud.google.com/go v0.75.0 => cloud.google.com/go v0.75.0
+# cloud.google.com/go v0.81.0 => cloud.google.com/go v0.75.0
 ## explicit
 cloud.google.com/go/compute/metadata
 # github.com/Azure/go-ansiterm v0.0.0-20170929234023-d6e3b3328b78
@@ -69,7 +69,7 @@ github.com/golang/protobuf/ptypes
 github.com/golang/protobuf/ptypes/any
 github.com/golang/protobuf/ptypes/duration
 github.com/golang/protobuf/ptypes/timestamp
-# github.com/google/go-cmp v0.5.4
+# github.com/google/go-cmp v0.5.5
 ## explicit
 github.com/google/go-cmp/cmp
 github.com/google/go-cmp/cmp/internal/diff
@@ -185,7 +185,7 @@ go.etcd.io/etcd/raft/quorum
 go.etcd.io/etcd/raft/raftpb
 go.etcd.io/etcd/raft/tracker
 go.etcd.io/etcd/version
-# go.opencensus.io v0.22.5
+# go.opencensus.io v0.23.0
 go.opencensus.io
 go.opencensus.io/internal
 go.opencensus.io/internal/tagencoding
@@ -221,9 +221,9 @@ golang.org/x/crypto/internal/subtle
 golang.org/x/crypto/nacl/secretbox
 golang.org/x/crypto/poly1305
 golang.org/x/crypto/salsa20/salsa
-# golang.org/x/lint v0.0.0-20201208152925-83fdc39ff7b5 => golang.org/x/lint v0.0.0-20201208152925-83fdc39ff7b5
+# golang.org/x/lint v0.0.0-20210508222113-6edffad5e616 => golang.org/x/lint v0.0.0-20201208152925-83fdc39ff7b5
 ## explicit
-# golang.org/x/net v0.0.0-20210224082022-3d97a244fca7
+# golang.org/x/net v0.0.0-20210405180319-a5a99cb37ef4
 golang.org/x/net/context
 golang.org/x/net/context/ctxhttp
 golang.org/x/net/http/httpguts
@@ -233,7 +233,7 @@ golang.org/x/net/idna
 golang.org/x/net/internal/timeseries
 golang.org/x/net/trace
 golang.org/x/net/websocket
-# golang.org/x/oauth2 v0.0.0-20210112200429-01de73cf58bd => golang.org/x/oauth2 v0.0.0-20210112200429-01de73cf58bd
+# golang.org/x/oauth2 v0.0.0-20210413134643-5e61552d6c78 => golang.org/x/oauth2 v0.0.0-20210112200429-01de73cf58bd
 ## explicit
 golang.org/x/oauth2
 golang.org/x/oauth2/google
@@ -241,10 +241,10 @@ golang.org/x/oauth2/google/internal/externalaccount
 golang.org/x/oauth2/internal
 golang.org/x/oauth2/jws
 golang.org/x/oauth2/jwt
-# golang.org/x/sync v0.0.0-20201207232520-09787c993a3a => golang.org/x/sync v0.0.0-20201207232520-09787c993a3a
-## explicit
+# golang.org/x/sync v0.0.0-20210220032951-036812b2e83c => golang.org/x/sync v0.0.0-20201207232520-09787c993a3a
 golang.org/x/sync/singleflight
-# golang.org/x/sys v0.0.0-20210225134936-a50acf3fe073
+# golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c
+## explicit
 golang.org/x/sys/cpu
 golang.org/x/sys/internal/unsafeheader
 golang.org/x/sys/plan9
@@ -260,7 +260,9 @@ golang.org/x/text/unicode/norm
 golang.org/x/text/width
 # golang.org/x/time v0.0.0-20210220033141-f8bda1e9f3ba
 golang.org/x/time/rate
-# google.golang.org/api v0.36.0 => google.golang.org/api v0.30.0
+# golang.org/x/tools v0.1.5
+## explicit
+# google.golang.org/api v0.45.0 => google.golang.org/api v0.45.0
 ## explicit
 google.golang.org/api/compute/v0.alpha
 google.golang.org/api/compute/v0.beta
@@ -270,6 +272,7 @@ google.golang.org/api/googleapi
 google.golang.org/api/googleapi/transport
 google.golang.org/api/internal
 google.golang.org/api/internal/gensupport
+google.golang.org/api/internal/impersonate
 google.golang.org/api/internal/third_party/uritemplates
 google.golang.org/api/option
 google.golang.org/api/option/internaloption
@@ -277,7 +280,8 @@ google.golang.org/api/tpu/v1
 google.golang.org/api/transport/cert
 google.golang.org/api/transport/http
 google.golang.org/api/transport/http/internal/propagation
-# google.golang.org/appengine v1.6.6
+google.golang.org/api/transport/internal/dca
+# google.golang.org/appengine v1.6.7
 google.golang.org/appengine
 google.golang.org/appengine/internal
 google.golang.org/appengine/internal/app_identity
@@ -288,11 +292,9 @@ google.golang.org/appengine/internal/modules
 google.golang.org/appengine/internal/remote_api
 google.golang.org/appengine/internal/urlfetch
 google.golang.org/appengine/urlfetch
-# google.golang.org/genproto v0.0.0-20210111234610-22ae2b108f89 => google.golang.org/genproto v0.0.0-20210111234610-22ae2b108f89
-## explicit
+# google.golang.org/genproto v0.0.0-20210413151531-c14fb6ef47c3 => google.golang.org/genproto v0.0.0-20210111234610-22ae2b108f89
 google.golang.org/genproto/googleapis/rpc/status
-# google.golang.org/grpc v1.34.0 => google.golang.org/grpc v1.27.1
-## explicit
+# google.golang.org/grpc v1.37.0 => google.golang.org/grpc v1.27.1
 google.golang.org/grpc
 google.golang.org/grpc/attributes
 google.golang.org/grpc/backoff
@@ -1042,7 +1044,7 @@ sigs.k8s.io/yaml
 # golang.org/x/lint => golang.org/x/lint v0.0.0-20201208152925-83fdc39ff7b5
 # golang.org/x/oauth2 => golang.org/x/oauth2 v0.0.0-20210112200429-01de73cf58bd
 # golang.org/x/sync => golang.org/x/sync v0.0.0-20201207232520-09787c993a3a
-# google.golang.org/api => google.golang.org/api v0.30.0
+# google.golang.org/api => google.golang.org/api v0.45.0
 # google.golang.org/genproto => google.golang.org/genproto v0.0.0-20210111234610-22ae2b108f89
 # google.golang.org/grpc => google.golang.org/grpc v1.27.1
 # gopkg.in/check.v1 => gopkg.in/check.v1 v1.0.0-20200902074654-038fdea0a05b
