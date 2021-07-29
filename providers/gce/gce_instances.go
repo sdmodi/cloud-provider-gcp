@@ -27,6 +27,7 @@ import (
 	"time"
 
 	"cloud.google.com/go/compute/metadata"
+	computealpha "google.golang.org/api/compute/v0.alpha"
 	computebeta "google.golang.org/api/compute/v0.beta"
 	compute "google.golang.org/api/compute/v1"
 	"k8s.io/klog/v2"
@@ -44,6 +45,7 @@ import (
 const (
 	defaultZone                   = ""
 	networkInterfaceIP            = "instance/network-interfaces/%s/ip"
+	networkInterfaceIPv6          = "instance/network-interfaces/%s/ipv6s"
 	networkInterfaceAccessConfigs = "instance/network-interfaces/%s/access-configs"
 	networkInterfaceExternalIP    = "instance/network-interfaces/%s/access-configs/%s/external-ip"
 )
@@ -115,7 +117,11 @@ func (g *Cloud) NodeAddresses(ctx context.Context, nodeName types.NodeName) ([]v
 					return nil, fmt.Errorf("couldn't get internal IP: %v", err)
 				}
 				nodeAddresses = append(nodeAddresses, v1.NodeAddress{Type: v1.NodeInternalIP, Address: internalIP})
-
+				internalIPv6, err := metadata.Get(fmt.Sprintf(networkInterfaceIPv6, nic))
+				if err != nil {
+					return nil, fmt.Errorf("couldn't get internal IPv6 address: %v", err)
+				}
+				nodeAddresses = append(nodeAddresses, v1.NodeAddress{Type: v1.NodeInternalIP, Address: internalIPv6})
 				acs, err := metadata.Get(fmt.Sprintf(networkInterfaceAccessConfigs, nic))
 				if err != nil {
 					return nil, fmt.Errorf("couldn't get access configs: %v", err)
@@ -501,8 +507,8 @@ func (g *Cloud) AliasRangesByProviderID(providerID string) (cidrs []string, err 
 		return nil, err
 	}
 
-	var res *computebeta.Instance
-	res, err = g.c.BetaInstances().Get(ctx, meta.ZonalKey(canonicalizeInstanceName(name), zone))
+	var res *computealpha.Instance
+	res, err = g.c.AlphaInstances().Get(ctx, meta.ZonalKey(canonicalizeInstanceName(name), zone))
 	if err != nil {
 		return
 	}
@@ -510,6 +516,16 @@ func (g *Cloud) AliasRangesByProviderID(providerID string) (cidrs []string, err 
 	for _, networkInterface := range res.NetworkInterfaces {
 		for _, r := range networkInterface.AliasIpRanges {
 			cidrs = append(cidrs, r.IpCidrRange)
+			ipv6Addr := networkInterface.Ipv6Address
+			if ipv6Addr == "" && networkInterface.Ipv6AccessType == "EXTERNAL" {
+				for _, r := range networkInterface.Ipv6AccessConfigs {
+					ipv6Addr = r.ExternalIpv6
+				}
+			}
+			// The podCIDR range is the first /112 subrange from the /96 assigned to
+			// the node
+			ipv6PodCIDR := fmt.Sprintf("%s/112", ipv6Addr)
+			cidrs = append(cidrs, ipv6PodCIDR)
 		}
 	}
 	return
