@@ -165,7 +165,7 @@ func (g *Cloud) NodeAddresses(ctx context.Context, nodeName types.NodeName) ([]v
 		return nil, fmt.Errorf("couldn't get instance details: %v", err)
 	}
 
-	instance, err := g.c.Instances().Get(timeoutCtx, meta.ZonalKey(canonicalizeInstanceName(instanceObj.Name), instanceObj.Zone))
+	instance, err := g.c.AlphaInstances().Get(timeoutCtx, meta.ZonalKey(canonicalizeInstanceName(instanceObj.Name), instanceObj.Zone))
 	if err != nil {
 		return []v1.NodeAddress{}, fmt.Errorf("error while querying for instance: %v", err)
 	}
@@ -184,7 +184,7 @@ func (g *Cloud) NodeAddressesByProviderID(ctx context.Context, providerID string
 		return []v1.NodeAddress{}, err
 	}
 
-	instance, err := g.c.Instances().Get(timeoutCtx, meta.ZonalKey(canonicalizeInstanceName(name), zone))
+	instance, err := g.c.AlphaInstances().Get(timeoutCtx, meta.ZonalKey(canonicalizeInstanceName(name), zone))
 	if err != nil {
 		return []v1.NodeAddress{}, fmt.Errorf("error while querying for providerID %q: %v", providerID, err)
 	}
@@ -221,7 +221,7 @@ func (g *Cloud) InstanceShutdown(ctx context.Context, node *v1.Node) (bool, erro
 	return false, cloudprovider.NotImplemented
 }
 
-func nodeAddressesFromInstance(instance *compute.Instance) ([]v1.NodeAddress, error) {
+func nodeAddressesFromInstance(instance *computealpha.Instance) ([]v1.NodeAddress, error) {
 	if len(instance.NetworkInterfaces) < 1 {
 		return nil, fmt.Errorf("could not find network interfaces for instanceID %q", instance.Id)
 	}
@@ -232,6 +232,13 @@ func nodeAddressesFromInstance(instance *compute.Instance) ([]v1.NodeAddress, er
 		for _, config := range nic.AccessConfigs {
 			nodeAddresses = append(nodeAddresses, v1.NodeAddress{Type: v1.NodeExternalIP, Address: config.NatIP})
 		}
+		ipv6Addr := nic.Ipv6Address
+		if ipv6Addr == "" && nic.Ipv6AccessType == "EXTERNAL" {
+			for _, r := range nic.Ipv6AccessConfigs {
+				ipv6Addr = r.ExternalIpv6
+			}
+		}
+		nodeAddresses = append(nodeAddresses, v1.NodeAddress{Type: v1.NodeInternalIP, Address: ipv6Addr})
 	}
 
 	return nodeAddresses, nil
@@ -303,7 +310,7 @@ func (g *Cloud) InstanceMetadata(ctx context.Context, node *v1.Node) (*cloudprov
 		return nil, err
 	}
 
-	instance, err := g.c.Instances().Get(timeoutCtx, meta.ZonalKey(canonicalizeInstanceName(name), zone))
+	instance, err := g.c.AlphaInstances().Get(timeoutCtx, meta.ZonalKey(canonicalizeInstanceName(name), zone))
 	if err != nil {
 		return nil, fmt.Errorf("error while querying for providerID %q: %v", providerID, err)
 	}
