@@ -16,7 +16,7 @@ require (
 	k8s.io/client-go v0.0.0
 	k8s.io/cloud-provider v0.0.0
 	k8s.io/component-base v0.0.0
-	k8s.io/klog/v2 v2.8.0
+	k8s.io/klog/v2 v2.30.0
 	k8s.io/utils v0.0.0-20201110183641-67b214c5f920
 )
 
@@ -34,6 +34,6 @@ replace (
 	k8s.io/client-go => k8s.io/client-go v0.23.1
 	k8s.io/cloud-provider => k8s.io/cloud-provider v0.23.1
 	k8s.io/component-base => k8s.io/component-base v0.23.1
-	k8s.io/klog/v2 => k8s.io/klog/v2 v2.8.0
+	k8s.io/klog/v2 => k8s.io/klog/v2 v2.30.0
 	k8s.io/utils => k8s.io/utils v0.0.0-20210802155522-efc7438f0176 // indirect
 )

@@ -29,7 +29,7 @@ require (
 	k8s.io/component-base v0.23.1
 	k8s.io/component-helpers v0.23.1
 	k8s.io/controller-manager v0.23.1
-	k8s.io/klog/v2 v2.9.0
+	k8s.io/klog/v2 v2.30.0
 	k8s.io/kube-controller-manager v0.23.1
 	k8s.io/kubelet v0.23.1
 	k8s.io/kubernetes v1.23.1
@@ -79,7 +79,7 @@ replace (
 	k8s.io/controller-manager => k8s.io/controller-manager v0.23.1
 	k8s.io/cri-api => k8s.io/cri-api v0.23.1
 	k8s.io/csi-translation-lib => k8s.io/csi-translation-lib v0.23.1
-	k8s.io/klog/v2 => k8s.io/klog/v2 v2.8.0
+	k8s.io/klog/v2 => k8s.io/klog/v2 v2.30.0
 	k8s.io/kube-aggregator => k8s.io/kube-aggregator v0.23.1
 	k8s.io/kube-controller-manager => k8s.io/kube-controller-manager v0.23.1
 	k8s.io/kube-proxy => k8s.io/kube-proxy v0.23.1
